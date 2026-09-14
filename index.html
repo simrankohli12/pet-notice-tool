@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Send your objection — Lodha pet notification</title>
+<style>
+  :root{
+    --ink:#1c2130;
+    --ink-soft:#4b5266;
+    --paper:#f7f5f0;
+    --card:#ffffff;
+    --line:#dedad0;
+    --accent:#b3491f;
+    --accent-soft:#f3e2d6;
+    --accent-deep:#7a3113;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family: Georgia, 'Iowan Old Style', 'Palatino Linotype', serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.5;
+  }
+  .wrap{max-width:720px;margin:0 auto;padding:48px 24px 96px;}
+  header{margin-bottom:40px;}
+  .kicker{
+    font-family: -apple-system, Helvetica, Arial, sans-serif;
+    font-size:13px;
+    letter-spacing:.04em;
+    color:var(--accent-deep);
+    margin:0 0 10px;
+    font-weight:600;
+  }
+  h1{
+    font-size:30px;
+    line-height:1.25;
+    margin:0 0 14px;
+    font-weight:400;
+  }
+  .sub{
+    font-family: -apple-system, Helvetica, Arial, sans-serif;
+    color:var(--ink-soft);
+    font-size:15px;
+    max-width:60ch;
+    margin:0;
+  }
+
+  .config{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:20px 24px;
+    margin:32px 0;
+    font-family: -apple-system, Helvetica, Arial, sans-serif;
+  }
+  .config h2{font-size:14px;font-weight:600;margin:0 0 4px;color:var(--ink-soft);}
+  .config .note{font-size:12.5px;color:var(--ink-soft);margin:0 0 16px;}
+  .field{margin-bottom:14px;}
+  .field:last-child{margin-bottom:0;}
+  .field label{display:block;font-size:12.5px;color:var(--ink-soft);margin-bottom:5px;}
+  .field input{
+    width:100%;
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:9px 11px;
+    font-size:14px;
+    font-family:inherit;
+    background:#fdfcfa;
+    color:var(--ink);
+  }
+  .field input:focus{outline:2px solid var(--accent-soft);border-color:var(--accent);}
+  .field .opt{color:var(--ink-soft);font-weight:400;}
+
+  .templates{margin-top:36px;}
+  .templates h2{
+    font-family: -apple-system, Helvetica, Arial, sans-serif;
+    font-size:14px;font-weight:600;color:var(--ink-soft);margin:0 0 16px;
+  }
+  .tpl-list{display:flex;flex-direction:column;gap:10px;}
+  .tpl{
+    border:1px solid var(--line);
+    border-radius:10px;
+    background:var(--card);
+    cursor:pointer;
+    overflow:hidden;
+  }
+  .tpl-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:16px 20px;
+    gap:16px;
+  }
+  .tpl-head .name{font-size:17px;}
+  .tpl-head .tag{
+    font-family: -apple-system, Helvetica, Arial, sans-serif;
+    font-size:11.5px;
+    color:var(--accent-deep);
+    background:var(--accent-soft);
+    padding:3px 9px;
+    border-radius:20px;
+    white-space:nowrap;
+  }
+  .tpl-body{
+    display:none;
+    padding:0 20px 20px;
+    font-family: -apple-system, Helvetica, Arial, sans-serif;
+  }
+  .tpl.open .tpl-body{display:block;}
+  .tpl.open{border-color:var(--accent);}
+  .preview{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:14px 16px;
+    font-family: Georgia, serif;
+    font-size:13.5px;
+    white-space:pre-wrap;
+    color:var(--ink);
+    margin-bottom:14px;
+    max-height:260px;
+    overflow-y:auto;
+  }
+  .preview .pv-subject{font-weight:700;margin-bottom:8px;}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;}
+  .btn{
+    font-family: -apple-system, Helvetica, Arial, sans-serif;
+    font-size:13.5px;
+    font-weight:600;
+    padding:10px 16px;
+    border-radius:7px;
+    border:1px solid var(--line);
+    background:#fff;
+    color:var(--ink);
+    cursor:pointer;
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+  }
+  .btn.primary{
+    background:var(--accent);
+    border-color:var(--accent);
+    color:#fff;
+  }
+  .btn.primary:hover{background:var(--accent-deep);}
+  .btn:hover{background:var(--paper);}
+  .hint{
+    font-family: -apple-system, Helvetica, Arial, sans-serif;
+    font-size:12px;
+    color:var(--ink-soft);
+    margin-top:10px;
+  }
+  footer{
+    margin-top:44px;
+    font-family: -apple-system, Helvetica, Arial, sans-serif;
+    font-size:12.5px;
+    color:var(--ink-soft);
+    border-top:1px solid var(--line);
+    padding-top:18px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="kicker">Resident campaign tool</p>
+    <h1>Object to the pet notification — send it yourself</h1>
+    <p class="sub">Pick one of the three messages below, add your name if you'd like, and it opens in your own email app addressed to management. You review it and click send.</p>
+  </header>
+
+  <div class="config">
+    <h2>Your details</h2>
+    <p class="note">Both optional — leave blank to send anonymously, or fill in to sign the letter.</p>
+    <div class="field">
+      <label for="sendername">Your name <span class="opt">(optional)</span></label>
+      <input type="text" id="sendername" placeholder="e.g. Priya Sharma">
+    </div>
+    <div class="field">
+      <label for="flatnum">Apartment number <span class="opt">(optional)</span></label>
+      <input type="text" id="flatnum" placeholder="e.g. Tower B, 1204">
+    </div>
+  </div>
+
+  <div class="templates">
+    <h2>Choose a message</h2>
+    <div class="tpl-list" id="tplList"></div>
+  </div>
+
+  <footer>
+    Recipient: services@newcuffeparade.com. Each message opens in your default mail app pre-filled — this page never sends anything on its own.
+  </footer>
+</div>
+
+<script>
+const RECIPIENT = "services@newcuffeparade.com";
+const SUBJECT = "Formal objection to pet notification and restrictions";
+
+const templates = [
+  {
+    tag: "Formal",
+    name: "Template 1 — Formal objection",
+    body: `Dear Team Lodha,
+
+I am writing to formally object to the latest notification regarding pets and the manner in which Lodha has chosen to implement these so-called guidelines.
+
+What exactly is the purpose of putting paw-print stickers and tapes around the premises? Are these supposed to be treated as new rules simply because they have been physically put on the floor?
+
+If Lodha intends to impose a restriction on residents, please provide the specific bye-law, contractual provision, resolution or legal authority under which you are doing so. An app notification cannot simply become a new law governing residents.
+
+I also want to be absolutely clear that I will not accept or follow any new restriction that Lodha suddenly attempts to impose through a notification on the app without establishing its legal and contractual basis.
+
+More importantly, your notification has made an already sensitive situation considerably worse. By specifically asking residents to report pets and simultaneously telling pet parents where they should and should not go, Lodha has effectively encouraged residents to police pet parents themselves.
+
+That is already resulting in a much more hostile environment.
+
+Management should be de-escalating conflict, not creating it.
+
+If a particular pet owner is irresponsible, address that individual. If cleanliness is the concern, enforce cleanliness rules uniformly. If safety is the concern, apply safety rules uniformly.
+
+Pet parents pay the same maintenance as everyone else. We are residents of this society and are entitled to reasonable and equal use of common areas.
+
+I also expect Lodha to provide an equivalent mechanism for pet parents to report residents who threaten, intimidate, harass or confront us over our pets.
+
+Please understand that I am putting this objection on record. If Lodha continues imposing these restrictions without lawful authority, or if its communication results in harassment, intimidation, unlawful restriction or other actionable conduct against me or my pet, I will pursue the appropriate legal and regulatory remedies against the responsible parties and Lodha, to the extent permitted by law.
+
+If this approach is not immediately reconsidered and rectified, a formal legal notice will follow.
+
+Regards,
+{signature}`
+  },
+  {
+    tag: "Direct",
+    name: "Template 2 — Direct challenge",
+    body: `Dear Team Lodha,
+
+What exactly are you trying to achieve with this latest notification?
+
+Because from where I stand, it appears that Lodha has decided that instead of managing a community sensibly, it will simply single out pet parents, restrict their movement and encourage other residents to complain about them.
+
+This is completely unacceptable.
+
+And let us start with the ridiculous stickers and tapes.
+
+What exactly are these supposed to accomplish?
+
+Is the dog supposed to read the paw print? Or is this simply a way of visually marking out pet parents so that other residents can now walk up to them and tell them where they are "allowed" to go?
+
+If that is what Lodha intended, you have done an excellent job of making an already hostile situation considerably worse.
+
+Your notification has effectively emboldened residents who already have an issue with pets. They now seem to believe that Lodha has given them the authority to question, confront and police pet parents.
+
+You have created this environment. You cannot now wash your hands of the consequences.
+
+If someone wants to complain about a specific incident, fine. If a pet owner behaves irresponsibly, deal with that person.
+
+But don't turn every pet parent into a suspect.
+
+I also want to know exactly when Lodha acquired the authority to introduce new restrictions through an app notification.
+
+I did not agree to these restrictions. I did not vote for them. I did not authorise anyone to agree to them on my behalf.
+
+So please provide the exact bye-law, contractual provision, resolution or legal authority under which you are claiming that these restrictions are binding.
+
+Until you do, I will not be treating an app notification as a new law governing my use of the premises.
+
+I pay my maintenance exactly like every other resident. I am not a second-class resident because I have a pet.
+
+The BMC's own guidelines recognise the right of residents to keep companion animals and specifically caution against blanket exclusion of pets from common areas such as gardens and parks.
+
+Lodha needs to understand the difference between reasonable regulation and discriminatory restriction.
+
+There is also a serious issue with the one-sided complaint mechanism you have introduced.
+
+You have told residents to report pets through BelleVie. Where exactly do pet parents report the residents who abuse us, threaten us, photograph us, confront us or attempt to enforce these so-called rules themselves?
+
+Or is that simply not a concern for Lodha?
+
+Because if this notification results in any harassment, intimidation, threat, unlawful interference with my use of common areas or other actionable conduct against me or my pet, I will document it and pursue appropriate civil, criminal and regulatory remedies against the individual responsible and, where legally sustainable, against Lodha for its role in creating this environment.
+
+I am not issuing an empty threat.
+
+If Lodha does not immediately withdraw/reconsider these arbitrary restrictions and stop treating pet parents as a separate class of residents, a formal legal notice will follow.
+
+You have been warned.
+
+Regards,
+{signature}`
+  },
+  {
+    tag: "Escalation",
+    name: "Template 3 — Escalation warning",
+    body: `Dear Team Lodha,
+
+Your latest communication has made one thing abundantly clear: Lodha is not interested in creating a genuinely pet-friendly community. It is interested in appearing reasonable while progressively restricting pet parents.
+
+The stickers, the designated pathways, the complaint mechanism and the one-sided communication all point in the same direction.
+
+And I am not going to quietly accept it.
+
+What exactly is the purpose of these stickers?
+
+If a pet parent is already responsibly walking their dog, cleaning up after it and behaving appropriately, what does putting a paw print on the floor achieve?
+
+Nothing.
+
+What it does achieve is making it easier for other residents to point at something and say, "You are not allowed here."
+
+And that is exactly the problem.
+
+Your notification has made residents more hostile, not less.
+
+People who already have an issue with pets now feel that management has taken their side and has given them the authority to monitor pet parents.
+
+That is an incredibly irresponsible way for a residential management company to communicate.
+
+I strongly object to this.
+
+I also want to know who decided that these restrictions could simply be imposed without consulting the residents directly affected by them.
+
+Who is the pet-parent representative? Who elected them? When did I authorise them to make decisions on my behalf? And under what provision are these restrictions being imposed?
+
+Please do not send me another generic app notification. Give me the actual legal basis.
+
+Because I will not comply simply because Lodha has announced something on BelleVie.
+
+Pet parents pay the same maintenance as everyone else.
+
+We are residents.
+
+We are entitled to use common areas subject to legitimate and reasonable rules.
+
+We are not going to accept being treated as a problem that needs to be contained.
+
+If Lodha continues with this approach, I will escalate it formally.
+
+And if the hostile environment created by this notification results in any threat, harassment, intimidation, confrontation, unlawful restriction or other actionable incident involving me or my pet, I will pursue the appropriate remedies against those responsible and will specifically examine Lodha's liability and role in creating that environment.
+
+This is not an idle warning.
+
+If you do not mend your approach immediately, a formal legal notice will follow.
+
+Regards,
+{signature}`
+  }
+];
+
+function signature(){
+  const name = document.getElementById('sendername').value.trim();
+  const flat = document.getElementById('flatnum').value.trim();
+  if(!name && !flat) return '';
+  let sig = '';
+  if(name) sig += name;
+  if(flat) sig += (name ? '\n' : '') + flat;
+  return sig;
+}
+
+function fill(body){
+  return body.replaceAll('{signature}', signature());
+}
+
+const list = document.getElementById('tplList');
+
+function render(){
+  list.innerHTML = '';
+  templates.forEach((t, i) => {
+    const body = fill(t.body);
+    const el = document.createElement('div');
+    el.className = 'tpl';
+    el.innerHTML = `
+      <div class="tpl-head" data-idx="${i}">
+        <span class="name">${t.name}</span>
+        <span class="tag">${t.tag}</span>
+      </div>
+      <div class="tpl-body">
+        <div class="preview">
+          <div class="pv-subject">${SUBJECT}</div>
+          <div>${body}</div>
+        </div>
+        <div class="actions">
+          <a class="btn primary" href="#" data-mailto="${i}">Open in Gmail</a>
+          <button class="btn" data-copy="${i}" type="button">Copy message</button>
+        </div>
+        <p class="hint">Opens Gmail directly on Android and iPhone, addressed to ${RECIPIENT} with the subject and message filled in. If Gmail isn't installed, it falls back to whatever mail app is set as default.</p>
+      </div>
+    `;
+    list.appendChild(el);
+  });
+  attachHandlers();
+}
+
+function attachHandlers(){
+  document.querySelectorAll('.tpl-head').forEach(h => {
+    h.addEventListener('click', () => {
+      const card = h.closest('.tpl');
+      const wasOpen = card.classList.contains('open');
+      document.querySelectorAll('.tpl').forEach(c => c.classList.remove('open'));
+      if(!wasOpen) card.classList.add('open');
+    });
+  });
+
+  document.querySelectorAll('[data-mailto]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      const i = a.getAttribute('data-mailto');
+      const t = templates[i];
+      const plainBody = fill(t.body);
+      openInGmail(RECIPIENT, SUBJECT, plainBody);
+    });
+  });
+
+  function openInGmail(recipient, subject, body) {
+    const ua = navigator.userAgent || '';
+    const isIOS = /iPhone|iPad|iPod/.test(ua);
+    const isAndroid = /Android/.test(ua);
+
+    const encTo = encodeURIComponent(recipient);
+    const encSubject = encodeURIComponent(subject);
+    const encBody = encodeURIComponent(body);
+    const mailtoUrl = `mailto:${recipient}?subject=${encSubject}&body=${encBody}`;
+
+    if (isAndroid) {
+      // Android: Gmail's intent deep link opens the Gmail app compose screen
+      // directly. The S.browser_fallback_url makes Chrome fall back to
+      // mailto automatically if Gmail isn't installed.
+      const intentUrl =
+        `intent://co?to=${encTo}&subject=${encSubject}&body=${encBody}` +
+        `#Intent;scheme=googlegmail;package=com.google.android.gm;` +
+        `S.browser_fallback_url=${encodeURIComponent(mailtoUrl)};end`;
+      window.location.href = intentUrl;
+      return;
+    }
+
+    if (isIOS) {
+      // iOS: Gmail's custom URL scheme opens its compose screen directly.
+      // Safari doesn't auto-fallback for custom schemes, so if the Gmail
+      // app isn't installed, fall back to mailto after a short delay —
+      // but only if the page is still visible (i.e. nothing opened).
+      const gmailUrl = `googlegmail:///co?to=${encTo}&subject=${encSubject}&body=${encBody}`;
+      let handled = false;
+      const onVisChange = () => {
+        if (document.hidden) handled = true;
+      };
+      document.addEventListener('visibilitychange', onVisChange);
+      window.location.href = gmailUrl;
+      setTimeout(() => {
+        document.removeEventListener('visibilitychange', onVisChange);
+        if (!handled) window.location.href = mailtoUrl;
+      }, 1200);
+      return;
+    }
+
+    // Desktop / anything else: go straight to mailto, which opens
+    // whatever the system's default mail handler is (Gmail's web compose
+    // if the browser is set up that way, or a native mail app).
+    window.location.href = mailtoUrl;
+  }
+
+  document.querySelectorAll('[data-copy]').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const i = btn.getAttribute('data-copy');
+      const t = templates[i];
+      const text = `Subject: ${SUBJECT}\n\n${fill(t.body)}`;
+      try{
+        await navigator.clipboard.writeText(text);
+        const orig = btn.textContent;
+        btn.textContent = 'Copied';
+        setTimeout(() => btn.textContent = orig, 1500);
+      }catch(err){
+        alert('Could not copy automatically — please select and copy the text manually.');
+      }
+    });
+  });
+}
+
+['sendername','flatnum'].forEach(id => {
+  document.getElementById(id).addEventListener('input', render);
+});
+
+render();
+</script>
+</body>
+</html>
