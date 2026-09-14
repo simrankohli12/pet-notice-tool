@@ -3,17 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Send your objection — Lodha pet notification</title>
+<title>Send email to Lodha Team | Pet Parents Concerns</title>
 <style>
   :root{
-    --ink:#1c2130;
-    --ink-soft:#4b5266;
-    --paper:#f7f5f0;
+    --ink:#1b1d22;
+    --ink-soft:#54575f;
+    --paper:#ece9df;
     --card:#ffffff;
-    --line:#dedad0;
-    --accent:#b3491f;
-    --accent-soft:#f3e2d6;
-    --accent-deep:#7a3113;
+    --line:#d7d3c5;
+    --accent:#a8670c;
+    --accent-soft:#f2e2bf;
+    --accent-deep:#5f3e07;
+    --stripe-a:#1b1d22;
+    --stripe-b:#e0a52e;
   }
   *{box-sizing:border-box;}
   body{
@@ -23,27 +25,39 @@
     color:var(--ink);
     line-height:1.5;
   }
-  .wrap{max-width:720px;margin:0 auto;padding:48px 24px 96px;}
-  header{margin-bottom:40px;}
+  .stripe{
+    height:6px;
+    width:100%;
+    background-image: repeating-linear-gradient(
+      45deg,
+      var(--stripe-a),
+      var(--stripe-a) 12px,
+      var(--stripe-b) 12px,
+      var(--stripe-b) 24px
+    );
+  }
+  .wrap{max-width:720px;margin:0 auto;padding:44px 24px 96px;}
+  header{margin-bottom:36px;}
   .kicker{
     font-family: -apple-system, Helvetica, Arial, sans-serif;
     font-size:13px;
-    letter-spacing:.04em;
+    letter-spacing:.03em;
     color:var(--accent-deep);
-    margin:0 0 10px;
+    margin:0 0 12px;
     font-weight:600;
   }
   h1{
-    font-size:30px;
-    line-height:1.25;
+    font-size:32px;
+    line-height:1.22;
     margin:0 0 14px;
     font-weight:400;
+    max-width:20ch;
   }
   .sub{
     font-family: -apple-system, Helvetica, Arial, sans-serif;
     color:var(--ink-soft);
     font-size:15px;
-    max-width:60ch;
+    max-width:58ch;
     margin:0;
   }
 
@@ -93,7 +107,13 @@
     padding:16px 20px;
     gap:16px;
   }
+  .tpl-head .name-block{display:flex;flex-direction:column;gap:2px;}
   .tpl-head .name{font-size:17px;}
+  .tpl-head .desc{
+    font-family: -apple-system, Helvetica, Arial, sans-serif;
+    font-size:12.5px;
+    color:var(--ink-soft);
+  }
   .tpl-head .tag{
     font-family: -apple-system, Helvetica, Arial, sans-serif;
     font-size:11.5px;
@@ -102,6 +122,7 @@
     padding:3px 9px;
     border-radius:20px;
     white-space:nowrap;
+    flex-shrink:0;
   }
   .tpl-body{
     display:none;
@@ -164,16 +185,17 @@
 </style>
 </head>
 <body>
+<div class="stripe"></div>
 <div class="wrap">
   <header>
-    <p class="kicker">Resident campaign tool</p>
-    <h1>Object to the pet notification — send it yourself</h1>
-    <p class="sub">Pick one of the three messages below, add your name if you'd like, and it opens in your own email app addressed to management. You review it and click send.</p>
+    <p class="kicker">Pet parents' concerns</p>
+    <h1>Send email to Lodha Team</h1>
+    <p class="sub">Three letters, already written. Sign one if you'd like, pick a template — they're just different tones, pick whatever you want — and it opens straight in Gmail addressed to management with everything filled in. You read it once, then hit send.</p>
   </header>
 
   <div class="config">
-    <h2>Your details</h2>
-    <p class="note">Both optional — leave blank to send anonymously, or fill in to sign the letter.</p>
+    <h2>Sign it</h2>
+    <p class="note">Both fields optional — leave blank to send anonymously.</p>
     <div class="field">
       <label for="sendername">Your name <span class="opt">(optional)</span></label>
       <input type="text" id="sendername" placeholder="e.g. Priya Sharma">
@@ -185,23 +207,24 @@
   </div>
 
   <div class="templates">
-    <h2>Choose a message</h2>
+    <h2>Pick a template</h2>
     <div class="tpl-list" id="tplList"></div>
   </div>
 
   <footer>
-    Recipient: services@newcuffeparade.com. Each message opens in your default mail app pre-filled — this page never sends anything on its own.
+    Recipient: services@newcuffeparade.com. This page doesn't send anything on its own — you always review and hit send yourself.
   </footer>
 </div>
 
 <script>
 const RECIPIENT = "services@newcuffeparade.com";
-const SUBJECT = "Formal objection to pet notification and restrictions";
+const SUBJECT = "Formal objection — pet notification and restrictions";
 
 const templates = [
   {
     tag: "Formal",
-    name: "Template 1 — Formal objection",
+    name: "Template 1",
+    desc: "Cites bylaws, puts the objection on record",
     body: `Dear Team Lodha,
 
 I am writing to formally object to the latest notification regarding pets and the manner in which Lodha has chosen to implement these so-called guidelines.
@@ -232,8 +255,9 @@ Regards,
 {signature}`
   },
   {
-    tag: "Direct",
-    name: "Template 2 — Direct challenge",
+    tag: "Blunt",
+    name: "Template 2",
+    desc: "No hedging, straight challenge on authority",
     body: `Dear Team Lodha,
 
 What exactly are you trying to achieve with this latest notification?
@@ -291,7 +315,8 @@ Regards,
   },
   {
     tag: "Escalation",
-    name: "Template 3 — Escalation warning",
+    name: "Template 3",
+    desc: "Questions the process itself, most pointed of the three",
     body: `Dear Team Lodha,
 
 Your latest communication has made one thing abundantly clear: Lodha is not interested in creating a genuinely pet-friendly community. It is interested in appearing reasonable while progressively restricting pet parents.
@@ -371,7 +396,10 @@ function render(){
     el.className = 'tpl';
     el.innerHTML = `
       <div class="tpl-head" data-idx="${i}">
-        <span class="name">${t.name}</span>
+        <div class="name-block">
+          <span class="name">${t.name}</span>
+          <span class="desc">${t.desc}</span>
+        </div>
         <span class="tag">${t.tag}</span>
       </div>
       <div class="tpl-body">
@@ -411,53 +439,6 @@ function attachHandlers(){
     });
   });
 
-  function openInGmail(recipient, subject, body) {
-    const ua = navigator.userAgent || '';
-    const isIOS = /iPhone|iPad|iPod/.test(ua);
-    const isAndroid = /Android/.test(ua);
-
-    const encTo = encodeURIComponent(recipient);
-    const encSubject = encodeURIComponent(subject);
-    const encBody = encodeURIComponent(body);
-    const mailtoUrl = `mailto:${recipient}?subject=${encSubject}&body=${encBody}`;
-
-    if (isAndroid) {
-      // Android: Gmail's intent deep link opens the Gmail app compose screen
-      // directly. The S.browser_fallback_url makes Chrome fall back to
-      // mailto automatically if Gmail isn't installed.
-      const intentUrl =
-        `intent://co?to=${encTo}&subject=${encSubject}&body=${encBody}` +
-        `#Intent;scheme=googlegmail;package=com.google.android.gm;` +
-        `S.browser_fallback_url=${encodeURIComponent(mailtoUrl)};end`;
-      window.location.href = intentUrl;
-      return;
-    }
-
-    if (isIOS) {
-      // iOS: Gmail's custom URL scheme opens its compose screen directly.
-      // Safari doesn't auto-fallback for custom schemes, so if the Gmail
-      // app isn't installed, fall back to mailto after a short delay —
-      // but only if the page is still visible (i.e. nothing opened).
-      const gmailUrl = `googlegmail:///co?to=${encTo}&subject=${encSubject}&body=${encBody}`;
-      let handled = false;
-      const onVisChange = () => {
-        if (document.hidden) handled = true;
-      };
-      document.addEventListener('visibilitychange', onVisChange);
-      window.location.href = gmailUrl;
-      setTimeout(() => {
-        document.removeEventListener('visibilitychange', onVisChange);
-        if (!handled) window.location.href = mailtoUrl;
-      }, 1200);
-      return;
-    }
-
-    // Desktop / anything else: go straight to mailto, which opens
-    // whatever the system's default mail handler is (Gmail's web compose
-    // if the browser is set up that way, or a native mail app).
-    window.location.href = mailtoUrl;
-  }
-
   document.querySelectorAll('[data-copy]').forEach(btn => {
     btn.addEventListener('click', async () => {
       const i = btn.getAttribute('data-copy');
@@ -473,6 +454,43 @@ function attachHandlers(){
       }
     });
   });
+}
+
+function openInGmail(recipient, subject, body) {
+  const ua = navigator.userAgent || '';
+  const isIOS = /iPhone|iPad|iPod/.test(ua);
+  const isAndroid = /Android/.test(ua);
+
+  const encTo = encodeURIComponent(recipient);
+  const encSubject = encodeURIComponent(subject);
+  const encBody = encodeURIComponent(body);
+  const mailtoUrl = `mailto:${recipient}?subject=${encSubject}&body=${encBody}`;
+
+  if (isAndroid) {
+    const intentUrl =
+      `intent://co?to=${encTo}&subject=${encSubject}&body=${encBody}` +
+      `#Intent;scheme=googlegmail;package=com.google.android.gm;` +
+      `S.browser_fallback_url=${encodeURIComponent(mailtoUrl)};end`;
+    window.location.href = intentUrl;
+    return;
+  }
+
+  if (isIOS) {
+    const gmailUrl = `googlegmail:///co?to=${encTo}&subject=${encSubject}&body=${encBody}`;
+    let handled = false;
+    const onVisChange = () => {
+      if (document.hidden) handled = true;
+    };
+    document.addEventListener('visibilitychange', onVisChange);
+    window.location.href = gmailUrl;
+    setTimeout(() => {
+      document.removeEventListener('visibilitychange', onVisChange);
+      if (!handled) window.location.href = mailtoUrl;
+    }, 1200);
+    return;
+  }
+
+  window.location.href = mailtoUrl;
 }
 
 ['sendername','flatnum'].forEach(id => {
